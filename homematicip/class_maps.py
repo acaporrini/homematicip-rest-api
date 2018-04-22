@@ -29,6 +29,7 @@ TYPE_CLASS_MAP = {
     cn.FULL_FLUSH_SHUTTER: FullFlushShutter,
     cn.BRAND_SHUTTER: FullFlushShutter,
     cn.PRECENCE_DETECTOR_INDOOR: PresenceDetectorIndoor,
+    cn.BRAND_DIMMER: BrandDimmer,
     cn.PLUGGABLE_DIMMER: PluggableDimmer,
     cn.BRAND_SWITCH_MEASURING: BrandSwitchMeasuring,
     cn.PRINTED_CIRCUIT_BOARD_SWITCH_BATTERY: PrintedCircuitBoardSwitchBattery,

@@ -38,7 +38,7 @@ def convert_config2ini():
             _config.write(configfile)
         os.remove('./config.py')
     except ImportError:
-        pass 
+        pass
 
 def main():
     parser = ArgumentParser(description="a cli wrapper for the homematicip API")
@@ -70,6 +70,8 @@ def main():
 
     group = parser.add_argument_group("Device Settings")
     group.add_argument("--turn-on", action="store_true", dest="device_switch_state", help="turn the switch on",
+                       default=None)
+    group.add_argument("--set-dimmer", action="store", dest="set_dimmer", help="turn the switch on",
                        default=None)
     group.add_argument("--turn-off", action="store_false", dest="device_switch_state", help="turn the switch off",
                        default=None)
@@ -279,6 +281,13 @@ def main():
                     command_entered = True
                 else:
                     logger.error("can't turn on/off device {} of type {}".format(device.id, device.deviceType))
+
+            if args.set_dimmer is not None:
+                if isinstance(device, BrandDimmer):
+                    device.set_dim_level(args.set_dimmer)
+                    command_entered = True
+                else:
+                    logger.error("can't set device {} of type {}".format(device.id, device.deviceType))
 
             if args.device_shutter_level is not None:
                 if isinstance(device, FullFlushShutter):

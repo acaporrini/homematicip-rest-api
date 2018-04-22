@@ -189,7 +189,7 @@ class ShutterContact(SabotageDevice):
 
 class TemperatureHumiditySensorOutdoor(Device):
     """ HmIP-STHO (Temperature and Humidity Sensor outdoor) """
-    
+
     def __init__(self,connection):
         super().__init__(connection)
         self.actualTemperature = None
@@ -207,7 +207,7 @@ class TemperatureHumiditySensorOutdoor(Device):
 
 class TemperatureHumiditySensorWithoutDisplay(Device):
     """ HMIP-STH (Temperature and Humidity Sensor without display - indoor) """
-    
+
     def __init__(self,connection):
         super().__init__(connection)
         self.temperatureOffset = None
@@ -503,6 +503,30 @@ class PluggableDimmer(Device):
         data = {"channelIndex": 1, "deviceId": self.id, "dimLevel": dimLevel}
         return self._restCall("device/control/setDimLevel", json.dumps(data))
 
+class BrandDimmer(Device):
+    """HmIP-BDT Brand Dimmer"""
+
+    def __init__(self,connection):
+        super().__init__(connection)
+        self.dimLevel = 0.0
+        self.profileMode = ""
+        self.userDesiredProfileMode = ""
+
+    def from_json(self, js):
+        super().from_json(js)
+        c = get_functional_channel("DIMMER_CHANNEL", js)
+        if c:
+            self.dimLevel = c["dimLevel"]
+            self.profileMode = c["profileMode"]
+            self.userDesiredProfileMode = c["userDesiredProfileMode"]
+
+    def __str__(self):
+        return "{} dimLevel({}) profileMode({}) userDesiredProfileMode({})".format(super().__str__(), self.dimLevel, self.profileMode, self.userDesiredProfileMode)
+
+    def set_dim_level(self, dimLevel=0.0):
+        data = {"channelIndex": 1, "deviceId": self.id, "dimLevel": dimLevel}
+        return self._restCall("device/control/setDimLevel", json.dumps(data))
+
 class WeatherSensorPro(Device):
     """ HmIP-SWO-PR """
     def __init__(self,connection):
@@ -560,6 +584,6 @@ class WeatherSensorPro(Device):
                                                                                  self.windDirection,self.windDirectionVariation,self.windSpeed,
                                                                                  self.windValueType,self.yesterdayRainCounter,
                                                                                  self.yesterdaySunshineDuration)
-    
+
     #Any set/calibration functions?
 

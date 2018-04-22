@@ -39,6 +39,7 @@ TYPE_CLASS_MAP = {
     cn.BRAND_SHUTTER: AsyncFullFlushShutter,
     cn.PRECENCE_DETECTOR_INDOOR: AsyncPresenceDetectorIndoor,
     cn.PLUGGABLE_DIMMER: AsyncPluggableDimmer
+    cn.BRAND_DIMMER: BrandDimmer
 }
 
 TYPE_GROUP_MAP = {

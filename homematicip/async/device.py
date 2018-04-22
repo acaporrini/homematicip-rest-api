@@ -146,3 +146,9 @@ class AsyncPluggableDimmer(PluggableDimmer, AsyncDevice):
 
     async def set_dim_level(self, dimLevel=0.0):
         return await self._connection.api_call(*super().set_dim_level(dimLevel=dimLevel))
+
+class AsyncBrandDimmer(BrandDimmer, AsyncDevice):
+    """HmIP-BDT Brand Dimmer"""
+
+    async def set_dim_level(self, dimLevel=0.0):
+        return await self._connection.api_call(*super().set_dim_level(dimLevel=dimLevel))
